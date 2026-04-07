@@ -1,51 +1,24 @@
+package com.train.management;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class TrainConsistManagement {
-
-    static class CargoSafetyException extends RuntimeException {
-        public CargoSafetyException(String message) {
-            super(message);
-        }
-    }
-
-    static class GoodsBogie {
-        String shape;
-        String cargo;
-
-        GoodsBogie(String shape) {
-            this.shape = shape;
-        }
-
-        void assignCargo(String cargo) {
-            try {
-                if (shape.equalsIgnoreCase("Rectangular") &&
-                        cargo.equalsIgnoreCase("Petroleum")) {
-
-                    throw new CargoSafetyException("Error: Unsafe cargo assignment!");
-                }
-
-                this.cargo = cargo;
-                System.out.println("Cargo assigned successfully -> " + cargo);
-
-            } catch (CargoSafetyException e) {
-                System.out.println(e.getMessage());
-
-            } finally {
-                System.out.println("Cargo validation completed for " + shape + " bogie\n");
-            }
-        }
-    }
 
     public static void main(String[] args) {
 
+        // Welcome message
         System.out.println("===================================");
-        System.out.println("UC15 - Safe Cargo Assignment");
+        System.out.println("=== Train Consist Management App ===");
         System.out.println("===================================");
 
-        GoodsBogie cylindrical = new GoodsBogie("Cylindrical");
-        cylindrical.assignCargo("Petroleum");
+        // Initialize empty train consist (List of bogies)
+        List<String> bogies = new ArrayList<>();
 
-        GoodsBogie rectangular = new GoodsBogie("Rectangular");
-        rectangular.assignCargo("Petroleum");
+        // Display initial bogie count
+        System.out.println("Train consist initialized.");
+        System.out.println("Initial number of bogies: " + bogies.size());
 
-        System.out.println("UC15 runtime handling completed...");
+        System.out.println("Program continues...");
     }
 }
