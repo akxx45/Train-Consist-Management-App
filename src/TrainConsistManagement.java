@@ -1,19 +1,19 @@
 import java.util.ArrayList;
 import java.util.List;
 
-// ---- Bogie Class ----
-class Bogie {
-    String name;
-    int capacity;
+// ---- Goods Bogie Class ----
+class GoodsBogie {
+    String type;
+    String cargo;
 
-    Bogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
+    GoodsBogie(String type, String cargo) {
+        this.type = type;
+        this.cargo = cargo;
     }
 
     @Override
     public String toString() {
-        return name + " -> " + capacity;
+        return type + " -> " + cargo;
     }
 }
 
@@ -23,30 +23,37 @@ public class TrainConsistManagement {
     public static void main(String[] args) {
 
         System.out.println("===================================");
-        System.out.println("UC10 - Total Seating Capacity");
+        System.out.println("UC12 - Safety Compliance Check");
         System.out.println("===================================");
 
         // ---- CREATE LIST ----
-        List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 60));
-        bogies.add(new Bogie("First Class", 40));
-        bogies.add(new Bogie("Sleeper", 70));
-        bogies.add(new Bogie("AC Chair", 65));
+        List<GoodsBogie> bogies = new ArrayList<>();
+        bogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        bogies.add(new GoodsBogie("Box", "Coal"));
+        bogies.add(new GoodsBogie("Open", "Grain"));
+
+        // ❗ Try this to test failure:
+        // bogies.add(new GoodsBogie("Cylindrical", "Coal"));
 
         // ---- DISPLAY BOGIES ----
-        System.out.println("\nBogies:");
-        for (Bogie b : bogies) {
+        System.out.println("\nGoods Bogies:");
+        for (GoodsBogie b : bogies) {
             System.out.println(b);
         }
 
-        // ---- CALCULATE TOTAL USING STREAM ----
-        int totalSeats = bogies.stream()
-                .map(b -> b.capacity)       // Extract capacity
-                .reduce(0, Integer::sum);  // Sum all values
+        // ---- SAFETY CHECK USING STREAM ----
+        boolean isSafe = bogies.stream()
+                .allMatch(b ->
+                        !b.type.equalsIgnoreCase("Cylindrical")
+                                || b.cargo.equalsIgnoreCase("Petroleum")
+                );
 
         // ---- DISPLAY RESULT ----
-        System.out.println("\nTotal Seating Capacity: " + totalSeats);
+        if (isSafe) {
+            System.out.println("\nTrain is SAFE ✅");
+        } else {
+            System.out.println("\nTrain is UNSAFE ❌");
+        }
 
         System.out.println("\nProgram continues...");
     }
