@@ -2,10 +2,10 @@ import java.util.Arrays;
 
 public class TrainConsistManagement {
 
-    public static boolean binarySearch(String[] bogieIds, String key) {
+    public static boolean searchBogie(String[] bogieIds, String key) {
 
         if (bogieIds.length == 0) {
-            return false;
+            throw new IllegalStateException("No bogies available for search");
         }
 
         Arrays.sort(bogieIds);
@@ -34,19 +34,24 @@ public class TrainConsistManagement {
     public static void main(String[] args) {
 
         System.out.println("===================================");
-        System.out.println("UC19 - Binary Search Implementation");
+        System.out.println("UC20 - Exception Handling in Search");
         System.out.println("===================================");
 
-        String[] bogieIds = {"BG309","BG101","BG550","BG205","BG412"};
+        String[] bogieIds = {"BG101","BG205","BG309"};
 
         String searchKey = "BG205";
 
-        boolean found = binarySearch(bogieIds, searchKey);
+        try {
+            boolean found = searchBogie(bogieIds, searchKey);
 
-        if (found) {
-            System.out.println("Bogie Found");
-        } else {
-            System.out.println("Bogie Not Found");
+            if (found) {
+                System.out.println("Bogie Found");
+            } else {
+                System.out.println("Bogie Not Found");
+            }
+
+        } catch (IllegalStateException e) {
+            System.out.println("Exception: " + e.getMessage());
         }
 
         System.out.println("\nProgram continues...");
