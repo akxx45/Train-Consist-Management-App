@@ -1,31 +1,44 @@
-import java.util.Arrays;
-
 // ---- Main Class ----
 public class TrainConsistManagement {
 
+    // ---- Linear Search Method ----
+    public static boolean linearSearch(String[] bogieIds, String key) {
+
+        for (int i = 0; i < bogieIds.length; i++) {
+
+            // Compare using equals()
+            if (bogieIds[i].equals(key)) {
+                return true; // Found → stop early
+            }
+        }
+
+        return false; // Not found
+    }
+
+    // ---- Main Method ----
     public static void main(String[] args) {
 
         System.out.println("===================================");
-        System.out.println("UC17 - Arrays.sort() Implementation");
+        System.out.println("UC18 - Linear Search Implementation");
         System.out.println("===================================");
 
-        // ---- INPUT ARRAY ----
-        String[] bogieNames = {
-                "Sleeper",
-                "AC Chair",
-                "First Class",
-                "General",
-                "Luxury"
-        };
+        // ---- ARRAY OF BOGIE IDs ----
+        String[] bogieIds = {"BG101","BG205","BG309","BG412","BG550"};
 
-        // ---- BEFORE SORT ----
-        System.out.println("Before Sorting: " + Arrays.toString(bogieNames));
+        // ---- SEARCH KEY ----
+        String searchKey = "BG309";
 
-        // ---- SORTING USING BUILT-IN METHOD ----
-        Arrays.sort(bogieNames);
+        System.out.println("Searching for: " + searchKey);
 
-        // ---- AFTER SORT ----
-        System.out.println("After Sorting:  " + Arrays.toString(bogieNames));
+        // ---- SEARCH OPERATION ----
+        boolean found = linearSearch(bogieIds, searchKey);
+
+        // ---- RESULT ----
+        if (found) {
+            System.out.println("Bogie Found ✅");
+        } else {
+            System.out.println("Bogie Not Found ❌");
+        }
 
         System.out.println("\nProgram continues...");
     }
