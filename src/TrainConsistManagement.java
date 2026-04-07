@@ -1,47 +1,42 @@
-package com.train.management;
+import java.util.LinkedList;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class TrainConsistManagement{
+public class TrainConsistManagement {
 
     public static void main(String[] args) {
 
         System.out.println("===================================");
-        System.out.println("UC2 - Passenger Bogie Management");
+        System.out.println("UC4 - Ordered Train Consist");
         System.out.println("===================================");
 
-        // Create ArrayList to store passenger bogies
-        List<String> passengerBogies = new ArrayList<>();
+        // Create LinkedList for train consist
+        LinkedList<String> train = new LinkedList<>();
 
         // ---- ADD BOGIES ----
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        train.add("Engine");
+        train.add("Sleeper");
+        train.add("AC");
+        train.add("Cargo");
+        train.add("Guard");
 
-        System.out.println("\nPassenger bogies added:");
+        System.out.println("\nInitial Train Consist:");
+        System.out.println(train);
 
-        // ---- DISPLAY BOGIES ----
-        for (String bogie : passengerBogies) {
+        // ---- INSERT Pantry Car at position 2 ----
+        train.add(2, "Pantry");
+
+        System.out.println("\nAfter adding Pantry at position 2:");
+        System.out.println(train);
+
+        // ---- REMOVE FIRST AND LAST ----
+        train.removeFirst();  // Removes Engine
+        train.removeLast();   // Removes Guard
+
+        System.out.println("\nAfter removing first and last bogies:");
+        System.out.println(train);
+
+        System.out.println("\nFinal ordered train consist:");
+        for (String bogie : train) {
             System.out.println(bogie);
-        }
-
-        // ---- REMOVE A BOGIE ----
-        System.out.println("\nRemoving 'AC Chair' bogie...");
-        passengerBogies.remove("AC Chair");
-
-        // Display after removal
-        System.out.println("Updated bogie list:");
-        for (String bogie : passengerBogies) {
-            System.out.println(bogie);
-        }
-
-        // ---- CHECK EXISTENCE ----
-        System.out.println("\nChecking if 'Sleeper' bogie exists...");
-        if (passengerBogies.contains("Sleeper")) {
-            System.out.println("Sleeper bogie is present.");
-        } else {
-            System.out.println("Sleeper bogie is NOT present.");
         }
 
         System.out.println("\nProgram continues...");
