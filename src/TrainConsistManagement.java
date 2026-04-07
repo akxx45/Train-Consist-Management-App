@@ -1,43 +1,52 @@
-// ---- Main Class ----
+import java.util.Arrays;
+
 public class TrainConsistManagement {
 
-    // ---- Linear Search Method ----
-    public static boolean linearSearch(String[] bogieIds, String key) {
+    public static boolean binarySearch(String[] bogieIds, String key) {
 
-        for (int i = 0; i < bogieIds.length; i++) {
+        if (bogieIds.length == 0) {
+            return false;
+        }
 
-            // Compare using equals()
-            if (bogieIds[i].equals(key)) {
-                return true; // Found → stop early
+        Arrays.sort(bogieIds);
+
+        int low = 0;
+        int high = bogieIds.length - 1;
+
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            int result = key.compareTo(bogieIds[mid]);
+
+            if (result == 0) {
+                return true;
+            } else if (result < 0) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
             }
         }
 
-        return false; // Not found
+        return false;
     }
 
-    // ---- Main Method ----
     public static void main(String[] args) {
 
         System.out.println("===================================");
-        System.out.println("UC18 - Linear Search Implementation");
+        System.out.println("UC19 - Binary Search Implementation");
         System.out.println("===================================");
 
-        // ---- ARRAY OF BOGIE IDs ----
-        String[] bogieIds = {"BG101","BG205","BG309","BG412","BG550"};
+        String[] bogieIds = {"BG309","BG101","BG550","BG205","BG412"};
 
-        // ---- SEARCH KEY ----
-        String searchKey = "BG309";
+        String searchKey = "BG205";
 
-        System.out.println("Searching for: " + searchKey);
+        boolean found = binarySearch(bogieIds, searchKey);
 
-        // ---- SEARCH OPERATION ----
-        boolean found = linearSearch(bogieIds, searchKey);
-
-        // ---- RESULT ----
         if (found) {
-            System.out.println("Bogie Found ✅");
+            System.out.println("Bogie Found");
         } else {
-            System.out.println("Bogie Not Found ❌");
+            System.out.println("Bogie Not Found");
         }
 
         System.out.println("\nProgram continues...");
