@@ -1,27 +1,52 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
+// ---- Bogie Class ----
+class Bogie {
+    String name;
+    int capacity;
+
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    // For printing
+    @Override
+    public String toString() {
+        return name + " -> " + capacity;
+    }
+}
+
+// ---- Main Class ----
 public class TrainConsistManagement {
 
     public static void main(String[] args) {
 
         System.out.println("===================================");
-        System.out.println("UC6 - Bogie Capacity Mapping");
+        System.out.println("UC7 - Sort Bogies by Capacity");
         System.out.println("===================================");
 
-        // Create HashMap (Bogie -> Capacity)
-        Map<String, Integer> bogieCapacity = new HashMap<>();
+        // Create list of bogies
+        List<Bogie> bogies = new ArrayList<>();
 
-        // ---- INSERT DATA ----
-        bogieCapacity.put("Sleeper", 72);
-        bogieCapacity.put("AC Chair", 60);
-        bogieCapacity.put("First Class", 40);
+        // ---- ADD BOGIES ----
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 60));
+        bogies.add(new Bogie("First Class", 40));
 
-        // ---- DISPLAY DATA ----
-        System.out.println("\nBogie Capacity Details:");
+        System.out.println("\nBefore Sorting:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
+        }
 
-        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        // ---- SORT USING COMPARATOR ----
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+
+        System.out.println("\nAfter Sorting (by Capacity):");
+        for (Bogie b : bogies) {
+            System.out.println(b);
         }
 
         System.out.println("\nProgram continues...");
