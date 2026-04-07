@@ -1,53 +1,50 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
-// ---- Bogie Class ----
-class Bogie {
-    String name;
-    int capacity;
-
-    Bogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
-    }
-
-    @Override
-    public String toString() {
-        return name + " -> " + capacity;
-    }
-}
-
-// ---- Main Class ----
 public class TrainConsistManagement {
 
     public static void main(String[] args) {
 
         System.out.println("===================================");
-        System.out.println("UC10 - Total Seating Capacity");
+        System.out.println("UC11 - Regex Validation");
         System.out.println("===================================");
 
-        // ---- CREATE LIST ----
-        List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 60));
-        bogies.add(new Bogie("First Class", 40));
-        bogies.add(new Bogie("Sleeper", 70));
-        bogies.add(new Bogie("AC Chair", 65));
+        Scanner sc = new Scanner(System.in);
 
-        // ---- DISPLAY BOGIES ----
-        System.out.println("\nBogies:");
-        for (Bogie b : bogies) {
-            System.out.println(b);
+        // ---- USER INPUT ----
+        System.out.print("\nEnter Train ID (Format: TRN-1234): ");
+        String trainId = sc.nextLine();
+
+        System.out.print("Enter Cargo Code (Format: PET-AB): ");
+        String cargoCode = sc.nextLine();
+
+        // ---- DEFINE REGEX ----
+        String trainPattern = "TRN-\\d{4}";
+        String cargoPattern = "PET-[A-Z]{2}";
+
+        // ---- COMPILE PATTERNS ----
+        Pattern pTrain = Pattern.compile(trainPattern);
+        Pattern pCargo = Pattern.compile(cargoPattern);
+
+        // ---- MATCH INPUT ----
+        Matcher mTrain = pTrain.matcher(trainId);
+        Matcher mCargo = pCargo.matcher(cargoCode);
+
+        // ---- VALIDATION ----
+        if (mTrain.matches()) {
+            System.out.println("\nTrain ID is VALID");
+        } else {
+            System.out.println("\nTrain ID is INVALID");
         }
 
-        // ---- CALCULATE TOTAL USING STREAM ----
-        int totalSeats = bogies.stream()
-                .map(b -> b.capacity)       // Extract capacity
-                .reduce(0, Integer::sum);  // Sum all values
-
-        // ---- DISPLAY RESULT ----
-        System.out.println("\nTotal Seating Capacity: " + totalSeats);
+        if (mCargo.matches()) {
+            System.out.println("Cargo Code is VALID");
+        } else {
+            System.out.println("Cargo Code is INVALID");
+        }
 
         System.out.println("\nProgram continues...");
+        sc.close();
     }
 }
